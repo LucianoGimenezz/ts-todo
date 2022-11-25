@@ -1,7 +1,10 @@
 import { TodosInterface, StorageNameEnum } from "./todos/todos.model";
+import { deleteTodo } from "./modifyTodo";
 
-export function showTodos() {
+export function renderTodo() {
   const taskList = document.querySelector<HTMLDivElement>("#taskList");
+  //Elimino lo que este en el DOM para evitar duplicar contenido
+  taskList != null ? (taskList.innerHTML = "") : null;
   const dataLocalStorage: string | null = localStorage.getItem(
     StorageNameEnum.TODOS
   );
@@ -12,7 +15,7 @@ export function showTodos() {
     if (todos?.length === 0 && taskList != null) {
       taskList.innerHTML = "No hay Todos";
     } else if (taskList != null) {
-      todos?.forEach((item: TodosInterface) => {
+      todos?.forEach((item: TodosInterface, index) => {
         const div = document.createElement("div");
         div.classList.add("todoItem");
         const title = document.createElement("p");
@@ -27,7 +30,11 @@ export function showTodos() {
         const buttonContainer = document.createElement("div");
         buttonContainer.classList.add("button__container");
         const buttonDelete = document.createElement("button");
-        buttonDelete.classList.add("btn", "button__container--delete");
+        buttonDelete.classList.add(
+          "btn",
+          "button__container--delete",
+          `${index}`
+        );
         buttonDelete.innerHTML = "Delete";
 
         const buttonCheck = document.createElement("button");
@@ -39,20 +46,15 @@ export function showTodos() {
         div.append(title, hr, todoItemContent, buttonContainer);
 
         taskList.append(div);
-        //     taskList.innerHTML = `
-        //     <div class="todoItem">
-        //         <p class="todoItem__title">${item?.title}</p>
-        //         <hr />
-        //         <div class="todoItem__content">
-        //             <p class="todoItem__task">${item?.task}</p>
-        //         </div>
-        //         <div class="button__container">
-        //             <button class="btn button__container--delete">Delete</button>
-        //             <button class="btn button__container--check">check</button>
-        //         </div>
+      });
 
-        //     </div>
-        // `;
+      const button = document.querySelectorAll<HTMLButtonElement>(
+        ".button__container--delete"
+      );
+      button.forEach((btn: HTMLButtonElement) => {
+        btn.addEventListener("click", (e: Event) => {
+          deleteTodo(e.target as HTMLButtonElement);
+        });
       });
     }
   } else {

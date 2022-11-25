@@ -1,13 +1,14 @@
 export interface TodosInterface {
-    title: string;
-    task: string;
+  title: string;
+  task: string;
+  check: boolean;
 }
 
 export enum FormDataNames {
-    TITLE = 'title',
-    TASK = 'task'
+  TITLE = "title",
+  TASK = "task",
 }
 
-export enum StorageNameEnum{
-    TODOS = 'TODOS'
+export enum StorageNameEnum {
+  TODOS = "TODOS",
 }

@@ -1,6 +1,6 @@
 import "./style.css";
 import { addTodo } from "./addTodo";
-import { showTodos } from "./todos";
+import { renderTodo } from "./todos";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <section class="container">
@@ -16,10 +16,10 @@ const form = document.querySelector<HTMLFormElement>(".container__addTodo");
 
 form?.addEventListener("submit", (e: Event) => {
   e.preventDefault();
-  const formData = new FormData(e.target as HTMLFormElement);
-  addTodo(formData);
+  // const formData = new FormData(e.target as HTMLFormElement);
+  addTodo(e.target as HTMLFormElement);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  showTodos();
+  renderTodo();
 });
