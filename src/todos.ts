@@ -1,5 +1,5 @@
 import { TodosInterface, StorageNameEnum } from "./todos/todos.model";
-import { deleteTodo } from "./modifyTodo";
+import { deleteTodo, checkTodo } from "./modifyTodo";
 
 export function renderTodo() {
   const taskList = document.querySelector<HTMLDivElement>("#taskList");
@@ -36,10 +36,17 @@ export function renderTodo() {
           `${index}`
         );
         buttonDelete.innerHTML = "Delete";
-
         const buttonCheck = document.createElement("button");
-        buttonCheck.classList.add("btn", "button__container--check");
+        buttonCheck.classList.add(
+          "btn",
+          "button__container--check",
+          `${index}`
+        );
         buttonCheck.innerHTML = "Check";
+        if (item.check) {
+          buttonCheck.classList.add("button__container--checked");
+          buttonCheck.innerHTML = "Checked";
+        }
 
         buttonContainer.append(buttonDelete, buttonCheck);
         todoItemContent.append(task);
@@ -51,11 +58,19 @@ export function renderTodo() {
       const button = document.querySelectorAll<HTMLButtonElement>(
         ".button__container--delete"
       );
-      button.forEach((btn: HTMLButtonElement) => {
-        btn.addEventListener("click", (e: Event) => {
+
+      const buttonCheck = document.querySelectorAll<HTMLButtonElement>(
+        ".button__container--check"
+      );
+
+      for (let index = 0; index < button.length; index++) {
+        button[index].addEventListener("click", (e: Event) => {
           deleteTodo(e.target as HTMLButtonElement);
         });
-      });
+        buttonCheck[index].addEventListener("click", (e: Event) => {
+          checkTodo(e.target as HTMLButtonElement);
+        });
+      }
     }
   } else {
     localStorage.setItem(StorageNameEnum.TODOS, JSON.stringify([]));

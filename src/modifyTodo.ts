@@ -11,3 +11,13 @@ export function deleteTodo(btn: HTMLButtonElement) {
   localStorage.setItem(StorageNameEnum.TODOS, JSON.stringify(todos));
   renderTodo();
 }
+
+export function checkTodo(btn: HTMLButtonElement) {
+  let indexTodo: number = parseInt(btn.classList[2]);
+  const todos: TodosInterface[] = JSON.parse(
+    localStorage.getItem(StorageNameEnum.TODOS) || "[]"
+  );
+  todos[indexTodo].check = !todos[indexTodo].check;
+  localStorage.setItem(StorageNameEnum.TODOS, JSON.stringify(todos));
+  renderTodo();
+}
