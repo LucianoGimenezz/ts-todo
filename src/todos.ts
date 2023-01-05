@@ -13,8 +13,10 @@ export function renderTodo() {
   if (dataLocalStorage !== null) {
     todos = JSON.parse(dataLocalStorage);
     if (todos?.length === 0 && taskList != null) {
+      document.querySelector<HTMLElement>(".footer")?.classList.add("hidden")
       taskList.innerHTML = "No hay Todos";
     } else if (taskList != null) {
+      document.querySelector<HTMLElement>(".footer")?.classList.remove("hidden")
       todos?.forEach((item: TodosInterface, index) => {
         const div = document.createElement("div");
         div.classList.add("todoItem");
@@ -74,6 +76,9 @@ export function renderTodo() {
     }
   } else {
     localStorage.setItem(StorageNameEnum.TODOS, JSON.stringify([]));
-    if (taskList != null) taskList.innerHTML = "No hay Todos";
+    if (taskList != null) {
+      document.querySelector<HTMLElement>(".footer")?.classList.add("hidden")
+      taskList.innerHTML = "No hay Todos";
+    } 
   }
 }

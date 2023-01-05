@@ -16,7 +16,6 @@ const form = document.querySelector<HTMLFormElement>(".container__addTodo");
 
 form?.addEventListener("submit", (e: Event) => {
   e.preventDefault();
-  // const formData = new FormData(e.target as HTMLFormElement);
   addTodo(e.target as HTMLFormElement);
 });
 
