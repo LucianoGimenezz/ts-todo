@@ -126,7 +126,8 @@
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 50px;
   align-items: center;
   color: #000;
 }
@@ -139,9 +140,17 @@
   text-decoration: none;
   font-weight: 500;
   color: black;
+  border: 1px solid transparent;
+  padding: 3px 7px;
+  border-radius: 3px;
 }
 
 
 .hidden {
   visibility: hidden;
+}
+
+
+.footer ul li .selected {
+  border-color: #09f;
 }
